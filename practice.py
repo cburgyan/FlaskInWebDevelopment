@@ -82,13 +82,17 @@ delayed_greeting()
 
 print('*************')
 
-@delay_function #this is syntactic sugar
+#'@delay_function' is syntactic sugar to 'delay_function(say_weather)()'
+# with no '@delay_function' above the function definition
+@delay_function
 def say_weather():
     print("The weather looks nice.")
 
 print("does the weather look good?")
 say_weather()
 
+#'@delay_function' is syntactic sugar to 'delay_function(say_fine)()'
+# with no '@delay_function' above the function definition
 @delay_function
 def say_fine():
     print('I feel fine.')
@@ -96,3 +100,12 @@ def say_fine():
 time.sleep(1)
 print('How do you feel? ')
 say_fine()
+
+time.sleep(1)
+print("hello, again!")
+delay_function(say_hello)()
+
+time.sleep(1)
+print('How are you doing, again?')
+delay_function(say_fine)()
+
