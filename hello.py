@@ -9,6 +9,10 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
+@app.route('/good_morning')
+def say_good_morning():
+    return 'Good Morning!😊'
+
 
 if __name__ == "__main__":
     app.run()

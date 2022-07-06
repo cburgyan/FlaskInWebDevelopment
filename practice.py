@@ -109,3 +109,34 @@ time.sleep(1)
 print('How are you doing, again?')
 delay_function(say_fine)()
 
+def my_name_is(name):
+    print(f'hi, I am {name}')
+
+def print_input(funcky, *args):
+    def wrapper_func():
+        print(args[0])
+        funcky(args[0])
+    return wrapper_func
+
+time.sleep(1)
+print_input(my_name_is, 'bob')()
+time.sleep(1)
+
+
+# Create the logging_decorator() function
+def logging_decorator(function):
+    def wrapper_function(*argies):
+        print(f'You called {function.__name__}{argies}')
+        print(f'It returned: {function(*argies)}')
+    return wrapper_function
+
+
+# Use the decorator
+@logging_decorator
+def a_function(a, b, c):
+    return a + b + c
+
+time.sleep(1)
+a_function(1, 2, 3)
+time.sleep(1)
+
