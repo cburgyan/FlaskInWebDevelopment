@@ -82,20 +82,24 @@ delayed_greeting()
 
 print('*************')
 
+
 #'@delay_function' is syntactic sugar to 'delay_function(say_weather)()'
 # with no '@delay_function' above the function definition
 @delay_function
 def say_weather():
     print("The weather looks nice.")
 
+
 print("does the weather look good?")
 say_weather()
+
 
 #'@delay_function' is syntactic sugar to 'delay_function(say_fine)()'
 # with no '@delay_function' above the function definition
 @delay_function
 def say_fine():
     print('I feel fine.')
+
 
 time.sleep(1)
 print('How do you feel? ')
@@ -109,14 +113,17 @@ time.sleep(1)
 print('How are you doing, again?')
 delay_function(say_fine)()
 
+
 def my_name_is(name):
     print(f'hi, I am {name}')
+
 
 def print_input(funcky, *args):
     def wrapper_func():
         print(args[0])
         funcky(args[0])
     return wrapper_func
+
 
 time.sleep(1)
 print_input(my_name_is, 'bob')()
@@ -136,7 +143,39 @@ def logging_decorator(function):
 def a_function(a, b, c):
     return a + b + c
 
+
 time.sleep(1)
 a_function(1, 2, 3)
 time.sleep(1)
 
+print('before class User')
+
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.is_logged_in = False
+
+
+def is_authenticated_decorator(function):
+    def wrapper(*args, **kwargs):
+        if args[0].is_logged_in:
+            function(args[0])
+    return wrapper
+
+
+@is_authenticated_decorator
+def create_blog_post(user):
+    print(f"This is {user.name}'s new blog post.")
+
+
+print("at User:")
+useful_user = User('Zareck')
+print(type(useful_user))
+print(useful_user)
+create_blog_post(useful_user)
+print("First Attempt:")
+create_blog_post(useful_user)
+print("********")
+print("Second Attempt")
+useful_user.is_logged_in = True
+create_blog_post(useful_user)
